@@ -1,21 +1,22 @@
 package ru.i2dev;
 
+import org.apache.log4j.Logger;
 import ru.i2dev.elevator.Elevator;
 import ru.i2dev.elevator.ElevatorEnvironment;
-
-import static java.lang.Thread.sleep;
+import ru.i2dev.stuff.env.EnvironmentCreator;
 
 public class Main {
+    private final static Logger logger = Logger.getLogger(Main.class);
+
     public static void main(String... args) {
-
-        ElevatorEnvironment environment = new ElevatorEnvironment();
-        environment.setDoorsOpenTime(5);
-        environment.setElevatorVelocity(1);
-        environment.setFloorHeight(4);
-        environment.setFloorNumber(18);
-
-        Elevator elevator = new Elevator(environment);
-        elevator.on();
+        try {
+            ElevatorEnvironment environment = new EnvironmentCreator(args).create();
+            Elevator elevator = new Elevator(environment);
+            elevator.on();
+        } catch (Exception ex) {
+            logger.error(ex.getMessage());
+        }
+        /*
         try {
             elevator.command("external:6");
             sleep(6000);
@@ -27,5 +28,6 @@ public class Main {
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
+        */
     }
 }
