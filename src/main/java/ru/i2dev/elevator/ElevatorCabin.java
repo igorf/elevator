@@ -22,7 +22,7 @@ public class ElevatorCabin extends Thread {
         this.betweenFloorPause = calculatePause();
         this.openPause = calculateDoorsOpenPause();
         this.commandOperator = checker;
-        setDaemon(false);
+        setDaemon(true);
     }
 
     @SuppressWarnings("InfiniteLoopStatement")

@@ -8,7 +8,7 @@ public class EnvironmentCreator {
     private Options options;
     private static final HelpFormatter helpFormatter = new HelpFormatter();
 
-    private static final String COMMAND_LINE = "<program> ";
+    private static final String COMMAND_LINE = "<program> <args>";
 
     private static final String FN_ARG = "floors-number";
     private static final String VL_ARG = "velocity";
