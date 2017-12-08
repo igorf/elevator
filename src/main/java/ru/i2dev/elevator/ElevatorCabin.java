@@ -14,13 +14,14 @@ public class ElevatorCabin extends Thread {
     private long openPause;
     private BlockingQueue<ElevatorCommand> commands;
 
-    public ElevatorCabin(ElevatorEnvironment environment, BlockingQueue<ElevatorCommand> commands) {
+    // Поменять на package private и собирать билдером
+    ElevatorCabin(ElevatorEnvironment environment, BlockingQueue<ElevatorCommand> commands) {
         super();
         this.commands = commands;
         this.environment = environment;
         this.betweenFloorPause = calculatePause();
         this.openPause = calculateDoorsOpenPause();
-        setDaemon(true);
+        setDaemon(false);
     }
 
     @SuppressWarnings("InfiniteLoopStatement")
