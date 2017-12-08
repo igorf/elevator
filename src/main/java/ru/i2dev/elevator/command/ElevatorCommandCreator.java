@@ -23,7 +23,7 @@ public class ElevatorCommandCreator {
     public ElevatorCommand create(String command) throws Exception {
         String[] elements = command.split(":");
         if (elements.length != 2 || !possibleSources.containsKey(elements[0].toLowerCase().trim())) {
-            throw new Exception(ErrorMessages.UNKNOWN_COMMAND);
+            throw new Exception(ErrorMessages.UNKNOWN_COMMAND + command);
         }
 
         CommandSource source = possibleSources.get(elements[0].toLowerCase().trim());

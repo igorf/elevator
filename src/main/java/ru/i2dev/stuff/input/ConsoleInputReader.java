@@ -2,22 +2,20 @@ package ru.i2dev.stuff.input;
 
 import org.apache.log4j.Logger;
 import ru.i2dev.elevator.Elevator;
-
-import java.util.Scanner;
+import ru.i2dev.stuff.input.drivers.ConsoleInputDataReader;
 
 public class ConsoleInputReader extends Thread {
     private final static Logger logger = Logger.getLogger(ConsoleInputReader.class);
     private Elevator elevator;
-    private Scanner scanner;
+    private static final ConsoleInputDataReader dataReader = new ConsoleInputDataReader();
 
     public ConsoleInputReader(Elevator elevator) {
         this.elevator = elevator;
-        this.scanner = new Scanner(System.in);
     }
 
     public void run() {
         while (!isInterrupted()) {
-            String command = scanner.nextLine();
+            String command = dataReader.readLine();
             try {
                 runCommand(command);
             } catch (InterruptedException ex) {
@@ -29,6 +27,9 @@ public class ConsoleInputReader extends Thread {
     }
 
     private void runCommand(String command) throws Exception {
+        if (command == null) {
+            throw new Exception(ConsoleMessages.UNABLE_TO_READ_SYSTEM_IN_MSG);
+        }
         if (command.trim().equalsIgnoreCase(ConsoleCommands.EXIT_COMMAND)) {
             interrupt();
             return;
