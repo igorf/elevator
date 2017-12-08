@@ -8,7 +8,7 @@ import ru.i2dev.stuff.env.EnvironmentCreator;
 public class Main {
     // Default args -v=1 -h=4 -f=18 -p=5
     private final static Logger logger = Logger.getLogger(Main.class);
-    static EnvironmentCreator envCreator;
+    private static EnvironmentCreator envCreator;
 
     public static void main(String... args) {
         try {
