@@ -1,9 +1,10 @@
 package ru.i2dev.elevator;
 
-import java.util.concurrent.BlockingQueue;
 import org.apache.log4j.Logger;
 import ru.i2dev.elevator.command.ElevatorCommand;
 import ru.i2dev.elevator.data.ElevatorMessages;
+
+import java.util.concurrent.BlockingQueue;
 
 public class ElevatorCabin extends Thread {
     private final static Logger logger = Logger.getLogger(ElevatorCabin.class);

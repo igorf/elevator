@@ -7,10 +7,10 @@ import ru.i2dev.stuff.env.EnvironmentCreator;
 import ru.i2dev.stuff.input.ConsoleInputReader;
 
 public class Main {
-    // Default args -v=1 -h=4 -f=18 -p=5
     private final static Logger logger = Logger.getLogger(Main.class);
     private static EnvironmentCreator envCreator;
 
+    // Recommended args -v=1 -h=4 -f=18 -p=5
     public static void main(String... args) {
         try {
             envCreator = new EnvironmentCreator(args);
