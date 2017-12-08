@@ -6,13 +6,19 @@ import ru.i2dev.elevator.ElevatorEnvironment;
 import ru.i2dev.stuff.env.EnvironmentCreator;
 
 public class Main {
+    // Default args -v=1 -h=4 -f=18 -p=5
     private final static Logger logger = Logger.getLogger(Main.class);
+    static EnvironmentCreator envCreator;
 
     public static void main(String... args) {
         try {
-            ElevatorEnvironment environment = new EnvironmentCreator(args).create();
+            envCreator = new EnvironmentCreator(args);
+            ElevatorEnvironment environment = envCreator.create();
             Elevator elevator = new Elevator(environment);
             elevator.on();
+        } catch (org.apache.commons.cli.ParseException ex) {
+            logger.error(ex.getMessage());
+            envCreator.help();
         } catch (Exception ex) {
             logger.error(ex.getMessage());
         }

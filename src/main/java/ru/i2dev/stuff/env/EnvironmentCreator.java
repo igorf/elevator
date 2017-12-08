@@ -5,6 +5,10 @@ import ru.i2dev.elevator.ElevatorEnvironment;
 
 public class EnvironmentCreator {
     private String[] args;
+    private Options options;
+    private static final HelpFormatter helpFormatter = new HelpFormatter();
+
+    private static final String COMMAND_LINE = "<program> ";
 
     private static final String FN_ARG = "floors-number";
     private static final String VL_ARG = "velocity";
@@ -13,6 +17,7 @@ public class EnvironmentCreator {
 
     public EnvironmentCreator(String... args) {
         this.args = args;
+        this.options = createOptions();
     }
 
     public ElevatorEnvironment create() throws Exception {
@@ -27,14 +32,22 @@ public class EnvironmentCreator {
         return result;
     }
 
-    private CommandLine parse() throws ParseException {
-        CommandLineParser parser = new DefaultParser();
+    public void help() {
+        helpFormatter.printHelp(COMMAND_LINE, options);
+    }
+
+    private Options createOptions() {
         Options options = new Options();
         options.addRequiredOption( "f", FN_ARG, true, "Количество этажей" );
         options.addRequiredOption( "v", VL_ARG, true, "Скорость лифта (м/с)" );
         options.addRequiredOption( "h", FH_ARG, true, "Высота этажа (м)" );
         options.addRequiredOption( "p", DP_ARG, true, "Пауза до закрытия дверей (с)" );
 
+        return options;
+    }
+
+    private CommandLine parse() throws ParseException {
+        CommandLineParser parser = new DefaultParser();
         return parser.parse(options, args);
     }
 }
