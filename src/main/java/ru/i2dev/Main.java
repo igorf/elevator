@@ -18,12 +18,12 @@ public class Main {
         elevator.on();
         try {
             elevator.command("external:6");
-            sleep(2500);
+            sleep(6000);
             elevator.command("external:14");
+            elevator.command("cabin:14");
+            sleep(14100);
             elevator.command("cabin:2");
-            elevator.command("external:11");
-            elevator.command("cabin:8");
-            elevator.command("cabin:3");
+            elevator.command("cabin:1");
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }

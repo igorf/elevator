@@ -10,7 +10,7 @@ import java.util.Map;
 public class ElevatorCommandCreator {
     private ElevatorEnvironment environment;
     private static final int MIN_FLOOR = 1; //Перенести бы в окружение
-    private static final Map<String, CommandSource> possibleSources = new HashMap<String, CommandSource>();
+    private static final Map<String, CommandSource> possibleSources = new HashMap<>();
     static {
         possibleSources.put("cabin", CommandSource.CABIN);
         possibleSources.put("external", CommandSource.EXTERNAL);

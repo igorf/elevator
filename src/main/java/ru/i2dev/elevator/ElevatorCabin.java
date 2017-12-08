@@ -13,14 +13,15 @@ public class ElevatorCabin extends Thread {
     private long betweenFloorPause;
     private long openPause;
     private BlockingQueue<ElevatorCommand> commands;
+    private ElevatorCommandOperator commandOperator;
 
-    // Поменять на package private и собирать билдером
-    ElevatorCabin(ElevatorEnvironment environment, BlockingQueue<ElevatorCommand> commands) {
+    ElevatorCabin(ElevatorEnvironment environment, BlockingQueue<ElevatorCommand> commands, ElevatorCommandOperator checker) {
         super();
         this.commands = commands;
         this.environment = environment;
         this.betweenFloorPause = calculatePause();
         this.openPause = calculateDoorsOpenPause();
+        this.commandOperator = checker;
         setDaemon(false);
     }
 
@@ -68,6 +69,9 @@ public class ElevatorCabin extends Thread {
 
         while(currentFloor != command.getFloor()) {
             moveToFlor(currentFloor + increment);
+            if (commandOperator.findAndRemoveFloorCommandIfExists(currentFloor)) {
+                openDoor();
+            }
         }
         openDoor();
     }

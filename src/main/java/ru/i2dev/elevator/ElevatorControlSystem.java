@@ -10,8 +10,10 @@ public class ElevatorControlSystem {
     private BlockingQueue<ElevatorCommand> commands;
     private ElevatorCommandCreator commandCreator;
     private long nextCommandID = 0;
+    private ElevatorCommandOperator commandOperator;
 
-    ElevatorControlSystem(ElevatorEnvironment environment, BlockingQueue<ElevatorCommand> commands) {
+    ElevatorControlSystem(ElevatorEnvironment environment, BlockingQueue<ElevatorCommand> commands, ElevatorCommandOperator checker) {
+        this.commandOperator = checker;
         this.environment = environment;
         this.commands = commands;
         this.commandCreator = new ElevatorCommandCreator(environment);
@@ -20,6 +22,6 @@ public class ElevatorControlSystem {
     public synchronized void addCommand(String command) throws Exception {
         ElevatorCommand createdCommand = commandCreator.create(command);
         createdCommand.setId(nextCommandID ++);
-        commands.add(createdCommand);
+        commandOperator.addOrReplace(createdCommand);
     }
 }

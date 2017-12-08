@@ -10,12 +10,14 @@ public class Elevator {
     private ElevatorEnvironment environment;
     private ElevatorCabin cabin;
     private ElevatorControlSystem controlSystem;
+    private ElevatorCommandOperator commandOperator;
 
     public Elevator(ElevatorEnvironment environment) {
         this.environment = environment;
         this.commands = createCommandQueue();
-        this.cabin = new ElevatorCabin(environment, commands);
-        this.controlSystem = new ElevatorControlSystem(environment, commands);
+        this.commandOperator = new ElevatorCommandOperator(commands);
+        this.cabin = new ElevatorCabin(environment, commands, commandOperator);
+        this.controlSystem = new ElevatorControlSystem(environment, commands, commandOperator);
     }
 
     public void on() {
@@ -27,6 +29,6 @@ public class Elevator {
     }
 
     private BlockingQueue<ElevatorCommand> createCommandQueue() {
-        return new PriorityBlockingQueue<ElevatorCommand>();
+        return new PriorityBlockingQueue<>();
     }
 }
